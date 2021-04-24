@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+header {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-bottom: 2px solid black;
+}
+button {
+  width: 100px;
+  height: 30px;
+  border-radius: 15px;
+  border-color: black;
+  background-color: transparent
+}

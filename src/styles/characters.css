@@ -1,0 +1,23 @@
+.characters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.article {
+    width: 200px;
+    min-width: 200px;
+    height: 300px;
+    margin: 20px;
+    border: 2px solid black;
+}
+.article__image img {
+    width: 196px;
+}
+.article__details {
+    padding: 10px;
+}
+.article__name {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
