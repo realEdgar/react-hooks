@@ -15,7 +15,6 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  border-bottom: 2px solid black;
 }
 button {
   width: 150px;

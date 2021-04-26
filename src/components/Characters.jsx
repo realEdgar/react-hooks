@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, useReducer, useMemo } from 'react';
 import '../styles/characters.css';
 
 const API_RICK = 'https://rickandmortyapi.com/api/character/'
@@ -22,6 +22,7 @@ const favoriteReducer = (state, action) => {
 export const Characters = () => {
     const [ characters, setCharacters ] = useState([]);
     const [ favorites, dispatch ] = useReducer(favoriteReducer, initialState);
+    const [ search, setSearch ] = useState('');
 
     useEffect(() => {
         fetch(API_RICK)
@@ -30,12 +31,32 @@ export const Characters = () => {
             .catch(error => console.error(new Error(error)))
     }, [])
 
+    const handleSearch = (ev) => {
+        return setSearch(ev.target.value);
+    }
+
     const handleClick = (favorite) => {
         dispatch({ type: 'ADD_TO_FAVORITE', payload: favorite });
     }
 
+    // const filteredUsers = characters.filter((user) => {
+    //     return user.name.toLowerCase().includes(search.toLowerCase());
+    // });
+
+    //=== Using useMemo ===//
+
+    const filteredUsers = useMemo(() => 
+        characters.filter((user) => {
+            return user.name.toLowerCase().includes(search.toLowerCase());
+    }), 
+        [ characters, search ]
+    );
+
     return (        
-        <div>
+        <div className="container__characters" >
+            <div className="container__input">
+                <input id="searcher" type="text" value={search} onChange={ handleSearch } placeholder="Search" />
+            </div>
             <div>
                 <h2>Lista de mis favoritas</h2>
                 <div className="favorites">
@@ -53,7 +74,7 @@ export const Characters = () => {
                 </div>                
             </div>
             <div className="characters">
-                {characters.map((character) => (
+                {filteredUsers.map((character) => (
                     <article key={character.id} className="article">
                         <figure className="article__image">
                             <img src={character.image} alt={character.name} />
