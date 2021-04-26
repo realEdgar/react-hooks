@@ -7,10 +7,11 @@
 .article {
     width: 200px;
     min-width: 200px;
-    height: 300px;
+    padding-bottom: 10px;
     margin: 20px;
     border: 2px solid black;
 }
+
 .article__image img {
     width: 196px;
 }
@@ -20,4 +21,11 @@
 .article__name {
     margin-bottom: 10px;
     font-size: 16px;
+}
+
+.favorites {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }

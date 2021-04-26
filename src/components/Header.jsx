@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import ThemeContext from "../context/ThemContext";
 
 export const Header = () => {
     const [ darkMode, setDarkMode ] = useState(false);
+    const color = useContext(ThemeContext)
 
     //===== Creating a function to handle the click of the button =====//
     function handleClick() {
@@ -9,6 +11,7 @@ export const Header = () => {
         const body = document.querySelector('body');
         const button = document.querySelector('button');
         const header = document.querySelector('header');
+        
         if(!darkMode) {
             body.classList.add('dark-mode');
             button.style.border = '2px solid white';
@@ -31,7 +34,7 @@ export const Header = () => {
 
     return (
         <header>
-            <h1>React Hooks</h1>
+            <h1 style={ {color} } >React Hooks</h1>
             <button type="button" onClick={ handleClick } >{ darkMode ? 'Ligth Mode' : 'Dark Mode' }</button>
         </header>
     )
