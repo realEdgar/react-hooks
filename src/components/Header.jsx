@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import ThemeContext from "../context/ThemContext";
+import Timer from './Timer.js'
 
 export const Header = () => {
     const [ darkMode, setDarkMode ] = useState(false);
@@ -43,6 +44,7 @@ export const Header = () => {
         <header>
             <h1 style={ {color} } >React Hooks</h1>
             <button type="button" onClick={ handleClick } >{ darkMode ? 'Ligth Mode' : 'Dark Mode' }</button>
+            <Timer />
         </header>
     )
 }

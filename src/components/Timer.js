@@ -5,7 +5,7 @@ class Timer extends React.Component {
         super(props);
         this.state = {
             hours: 0,
-            minutes: 15,
+            minutes: 0,
             seconds: 0
         }
     }
@@ -15,19 +15,19 @@ class Timer extends React.Component {
                 this.state = {
                     hours: state.hours,
                     minutes: state.minutes, 
-                    seconds: state.seconds - 1
+                    seconds: state.seconds + 1
                 };
             }
-            if(this.state.seconds === -1) {
+            if(this.state.seconds === 60) {
                 this.state = {
                     hours: state.hours,
-                    minutes: state.minutes - 1, 
-                    seconds: state.seconds = 59
+                    minutes: state.minutes + 1, 
+                    seconds: state.seconds = 0
                 };
             }
-            if(this.state.minutes === -1) {
+            if(this.state.minutes === 60) {
                 this.state = {
-                    hours: state.hours = 0,
+                    hours: state.hours + 1,
                     minutes: state.minutes = 0, 
                     seconds: state.seconds = 0
                 };
@@ -37,14 +37,24 @@ class Timer extends React.Component {
     }
 
     componentDidMount() {
-        this.interval = setInterval(() => this.tick(), 10);        
+        this.interval = setInterval(() => this.tick(), 1000);        
     }
 
     componentWillUnmount() {
         clearInterval(this.interval);
     }
+    
     render() {
-        return <h1> Timer: { this.state.hours } : { this.state.minutes } : { this.state.seconds } </h1>
+        return (
+            <h1 > 
+                <span>Timer:</span> 
+                <p className="timer">
+                    { this.state.hours } 
+                    : { this.state.minutes } 
+                    : { this.state.seconds }
+                </p>
+            </h1>
+        ); 
     }
 }
 

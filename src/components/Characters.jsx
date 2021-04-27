@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useReducer, useMemo } from 'react';
+import React, { useState, useEffect, useReducer, useMemo, useRef, useCallback } from 'react';
+import Search from './Search.jsx'
 import '../styles/characters.css';
 
-const API_RICK = 'https://rickandmortyapi.com/api/character/'
+const API_RICK = 'https://rickandmortyapi.com/api/character/';
 
 const initialState = {
     favorites: []
@@ -23,6 +24,7 @@ export const Characters = () => {
     const [ characters, setCharacters ] = useState([]);
     const [ favorites, dispatch ] = useReducer(favoriteReducer, initialState);
     const [ search, setSearch ] = useState('');
+    const searchInput = useRef('');
 
     useEffect(() => {
         fetch(API_RICK)
@@ -31,9 +33,13 @@ export const Characters = () => {
             .catch(error => console.error(new Error(error)))
     }, [])
 
-    const handleSearch = (ev) => {
-        return setSearch(ev.target.value);
-    }
+    // const handleSearch = (ev) => {
+    //     return setSearch(ev.target.value);
+    // }
+
+    const handleSearch = useCallback(() => {
+        setSearch(searchInput.current.value);
+    }, []);
 
     const handleClick = (favorite) => {
         dispatch({ type: 'ADD_TO_FAVORITE', payload: favorite });
@@ -54,9 +60,7 @@ export const Characters = () => {
 
     return (        
         <div className="container__characters" >
-            <div className="container__input">
-                <input id="searcher" type="text" value={search} onChange={ handleSearch } placeholder="Search" />
-            </div>
+            <Search search={search} searchInput={searchInput} handleSearch={handleSearch} />
             <div>
                 <h2>Lista de mis favoritas</h2>
                 <div className="favorites">
